@@ -13,36 +13,36 @@ public class VLMEvalTests: XCTestCase {
 
     func testGemma4TextEval() throws {
         let json = """
-        {
-            "model_type": "gemma4",
-            "text_config": {
-                "model_type": "gemma4_text",
-                "hidden_size": 64,
-                "num_hidden_layers": 4,
-                "intermediate_size": 128,
-                "num_attention_heads": 4,
-                "head_dim": 16,
-                "vocab_size": 200,
-                "num_key_value_heads": 1,
-                "sliding_window": 8,
-                "sliding_window_pattern": 2,
-                "rms_norm_eps": 1e-6
-            },
-            "vision_config": {
-                "hidden_size": 32,
-                "intermediate_size": 64,
-                "num_hidden_layers": 2,
-                "num_attention_heads": 4,
-                "num_key_value_heads": 4,
-                "head_dim": 8,
-                "patch_size": 4,
-                "position_embedding_size": 64,
-                "pooling_kernel_size": 2,
-                "default_output_length": 4,
-                "rms_norm_eps": 1e-6
+            {
+                "model_type": "gemma4",
+                "text_config": {
+                    "model_type": "gemma4_text",
+                    "hidden_size": 64,
+                    "num_hidden_layers": 4,
+                    "intermediate_size": 128,
+                    "num_attention_heads": 4,
+                    "head_dim": 16,
+                    "vocab_size": 200,
+                    "num_key_value_heads": 1,
+                    "sliding_window": 8,
+                    "sliding_window_pattern": 2,
+                    "rms_norm_eps": 1e-6
+                },
+                "vision_config": {
+                    "hidden_size": 32,
+                    "intermediate_size": 64,
+                    "num_hidden_layers": 2,
+                    "num_attention_heads": 4,
+                    "num_key_value_heads": 4,
+                    "head_dim": 8,
+                    "patch_size": 4,
+                    "position_embedding_size": 64,
+                    "pooling_kernel_size": 2,
+                    "default_output_length": 4,
+                    "rms_norm_eps": 1e-6
+                }
             }
-        }
-        """
+            """
 
         let data = json.data(using: .utf8)!
         let config = try JSONDecoder().decode(Gemma4Configuration.self, from: data)
@@ -62,36 +62,36 @@ public class VLMEvalTests: XCTestCase {
         // Use a 2×2 pool grid → 4 output tokens, each 2×2 kernel → 16 patches total
         // Image: pH=4, pW=4 patches → H=16, W=16 pixels
         let json = """
-        {
-            "model_type": "gemma4",
-            "text_config": {
-                "model_type": "gemma4_text",
-                "hidden_size": 64,
-                "num_hidden_layers": 4,
-                "intermediate_size": 128,
-                "num_attention_heads": 4,
-                "head_dim": 16,
-                "vocab_size": 200,
-                "num_key_value_heads": 1,
-                "sliding_window": 8,
-                "sliding_window_pattern": 2,
-                "rms_norm_eps": 1e-6
-            },
-            "vision_config": {
-                "hidden_size": 32,
-                "intermediate_size": 64,
-                "num_hidden_layers": 2,
-                "num_attention_heads": 4,
-                "num_key_value_heads": 4,
-                "head_dim": 8,
-                "patch_size": 4,
-                "position_embedding_size": 64,
-                "pooling_kernel_size": 2,
-                "default_output_length": 4,
-                "rms_norm_eps": 1e-6
+            {
+                "model_type": "gemma4",
+                "text_config": {
+                    "model_type": "gemma4_text",
+                    "hidden_size": 64,
+                    "num_hidden_layers": 4,
+                    "intermediate_size": 128,
+                    "num_attention_heads": 4,
+                    "head_dim": 16,
+                    "vocab_size": 200,
+                    "num_key_value_heads": 1,
+                    "sliding_window": 8,
+                    "sliding_window_pattern": 2,
+                    "rms_norm_eps": 1e-6
+                },
+                "vision_config": {
+                    "hidden_size": 32,
+                    "intermediate_size": 64,
+                    "num_hidden_layers": 2,
+                    "num_attention_heads": 4,
+                    "num_key_value_heads": 4,
+                    "head_dim": 8,
+                    "patch_size": 4,
+                    "position_embedding_size": 64,
+                    "pooling_kernel_size": 2,
+                    "default_output_length": 4,
+                    "rms_norm_eps": 1e-6
+                }
             }
-        }
-        """
+            """
 
         let data = json.data(using: .utf8)!
         let config = try JSONDecoder().decode(Gemma4Configuration.self, from: data)
