@@ -112,7 +112,9 @@ public struct Gemma4TextConfiguration: Codable, Sendable {
             return layerTypes
         }
         let pattern =
-            Array(repeating: "sliding_attention", count: slidingWindowPattern - 1) + ["full_attention"]
+            Array(repeating: "sliding_attention", count: slidingWindowPattern - 1) + [
+                "full_attention"
+            ]
         var result: [String] = []
         for i in 0 ..< numHiddenLayers {
             result.append(pattern[i % pattern.count])
@@ -202,7 +204,8 @@ class Gemma4Attention: Module {
         self.isSliding = layerTypes[layerIdx] == "sliding_attention"
 
         let firstKvSharedLayerIdx = config.numHiddenLayers - (config.numKvSharedLayers ?? 0)
-        self.isKvSharedLayer = (config.numKvSharedLayers ?? 0) > 0 && layerIdx >= firstKvSharedLayerIdx
+        self.isKvSharedLayer =
+            (config.numKvSharedLayers ?? 0) > 0 && layerIdx >= firstKvSharedLayerIdx
 
         // Full-attention layers use globalHeadDim when available
         let useGlobalHeadDim = !self.isSliding && (config.globalHeadDim ?? 0) > 0
@@ -441,7 +444,8 @@ class Gemma4Model: Module {
     // Per-layer embeddings (2B/4B models)
     @ModuleInfo(key: "embed_tokens_per_layer") var embedTokensPerLayer: Embedding?
     @ModuleInfo(key: "per_layer_model_projection") var perLayerModelProjection: Linear?
-    @ModuleInfo(key: "per_layer_projection_norm") var perLayerProjectionNorm: Gemma4RMSNormZeroShift?
+    @ModuleInfo(key: "per_layer_projection_norm") var perLayerProjectionNorm:
+        Gemma4RMSNormZeroShift?
 
     init(_ config: Gemma4TextConfiguration) {
         self.config = config
@@ -670,7 +674,9 @@ public class Gemma4TextModel: Module, LLMModel, KVCacheDimensionProvider {
             if strippedKey.contains("self_attn.rotary_emb") { continue }
             if strippedKey.contains("input_max") || strippedKey.contains("input_min")
                 || strippedKey.contains("output_max") || strippedKey.contains("output_min")
-            { continue }
+            {
+                continue
+            }
             sanitized[strippedKey] = value
         }
 
